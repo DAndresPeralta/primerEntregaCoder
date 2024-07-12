@@ -44,6 +44,8 @@ router.post("/products", (req, res) => {
     category,
   } = req.body;
 
+  // VALIDAR LA EXISTENCIA DE TODOS LOS CAMPOS CON UTILS
+
   const newProduct = {
     title,
     description,
