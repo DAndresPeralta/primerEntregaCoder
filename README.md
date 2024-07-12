@@ -10,12 +10,8 @@ Se desarrollará un servidor que contenga los endpoints y servicios necesarios p
 2. [Configuración](#configuración)
 3. [Uso](#uso)
 4. [Estructura del Proyecto](#estructura-del-proyecto)
-5. [Desarrollo](#desarrollo)
-6. [Despliegue](#despliegue)
-7. [Contribuir](#contribuir)
-8. [Licencia](#licencia)
-9. [Autores y Reconocimientos](#autores-y-reconocimientos)
-10. [Contactos y Soporte](#contactos-y-soporte)
+5. [Autores y Reconocimientos](#autores-y-reconocimientos)
+6. [Contactos y Soporte](#contactos-y-soporte)
 
 ## Instalación
 
