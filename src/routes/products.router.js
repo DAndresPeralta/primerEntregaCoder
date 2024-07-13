@@ -4,6 +4,7 @@ const {
   initializerFile,
   saveProductsToFile,
   getProductsFromFile,
+  validateFields,
 } = require("../utils/products.utils.js");
 
 initializerFile();
@@ -47,6 +48,7 @@ router.post("/products", (req, res) => {
   // VALIDAR LA EXISTENCIA DE TODOS LOS CAMPOS CON UTILS
 
   const newProduct = {
+    id: undefined,
     title,
     description,
     code,
@@ -56,11 +58,15 @@ router.post("/products", (req, res) => {
     category,
   };
 
-  const products = getProductsFromFile();
-  newProduct.id = parseInt(products.length + 1);
-  products.push(newProduct);
-  saveProductsToFile(products);
-  res.status(200).json(getProductsFromFile());
+  if (validateFields(newProduct)) {
+    const products = getProductsFromFile();
+    newProduct.id = parseInt(products.length + 1);
+    products.push(newProduct);
+    saveProductsToFile(products);
+    res.status(200).json(getProductsFromFile());
+  } else {
+    res.status(404).json({ msg: "Todos los campos son obligatorios" });
+  }
 });
 
 router.put("/products/:id", (req, res) => {

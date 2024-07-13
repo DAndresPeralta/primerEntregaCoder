@@ -17,4 +17,23 @@ const getProductsFromFile = () => {
   return JSON.parse(data);
 };
 
-module.exports = { initializerFile, saveProductsToFile, getProductsFromFile };
+const validateFields = (products) => {
+  if (
+    products.title === undefined ||
+    products.description === undefined ||
+    products.code === undefined ||
+    products.price === undefined ||
+    products.stock < 0 ||
+    products.category === undefined
+  ) {
+    return false;
+  }
+  return true;
+};
+
+module.exports = {
+  initializerFile,
+  saveProductsToFile,
+  getProductsFromFile,
+  validateFields,
+};

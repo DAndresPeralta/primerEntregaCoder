@@ -44,13 +44,23 @@ router.post("/carts", (req, res) => {
 router.post("/carts/:cid/product/:pid", (req, res) => {
   const cid = parseInt(req.params.cid);
   const pid = parseInt(req.params.pid);
+
   const { quantity } = req.body;
+  if (quantity == undefined || quantity <= 0) {
+    return res.status(404).json({ msg: "Ingrese una cantidad correcta" });
+  }
 
   const carts = getCartsFromFile();
   const products = getProductsFromFile();
 
   const cart = carts.find((c) => c.id === cid);
+  if (cart === undefined) {
+    return res.status(404).json({ msg: "Carrito inexistente" });
+  }
   const product = products.find((p) => p.id === pid);
+  if (product === undefined) {
+    return res.status(404).json({ msg: "Producto inexistente" });
+  }
 
   const indexProduct = cart.products.findIndex((i) => i.idProduct == pid);
 
@@ -59,9 +69,11 @@ router.post("/carts/:cid/product/:pid", (req, res) => {
     cart.products[indexProduct].quantity =
       cart.products[indexProduct].quantity + quantity;
     saveCartsToFile(carts);
+    res.status(200).json({ msg: "Se incremento el stock" });
   } else {
     cart.products.push({ idProduct: product.id, quantity: quantity });
     saveCartsToFile(carts);
+    res.status(200).json({ msg: "Prodcuto agregado a su carrito" });
   }
 });
 
